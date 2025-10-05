@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 
     /******************ADD YOUR VARIABLES HERE*************************/
     int current_time = 0;
-    const int CONTEXT_SAVE_TIME = 30;
+    const int CONTEXT_SAVE_TIME = 10;
     const int ISR_ACTIVITY_TIME = 40;
     /******************************************************************/
 

@@ -40,6 +40,33 @@ int main(int argc, char** argv) {
                         std::to_string(duration_intr) + ", CPU Burst\n";
             current_time += duration_intr;
         }
+        else if (activity == "SYSCALL") {
+            int device_num = duration_intr;
+            int device_delay = delays[device_num];
+            
+            // Calling helper function
+            auto [boilerplate_output, updated_time] = intr_boilerplate(current_time, device_num, CONTEXT_SAVE_TIME, vectors);
+            execution += boilerplate_output;
+            current_time = updated_time;
+            
+            // Breaking into 3 ISR activities that sum to device_delay
+            // Abiding by the professor's example
+            int first = 40;
+            int second = 40;
+            int third = device_delay - first - second;
+            
+            execution += std::to_string(current_time) + ", " + std::to_string(first) + 
+                        ", SYSCALL: run the ISR (device driver)\n";
+            current_time += first;
+            
+            execution += std::to_string(current_time) + ", " + std::to_string(second) + 
+                        ", transfer data from device to memory\n";
+            current_time += second;
+            
+            execution += std::to_string(current_time) + ", " + std::to_string(third) + 
+                        ", check for errors\n";
+            current_time += third;    
+        }
 
 
         /************************************************************************/

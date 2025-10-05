@@ -19,9 +19,9 @@ int main(int argc, char** argv) {
     std::string execution;  //!< string to accumulate the execution output
 
     /******************ADD YOUR VARIABLES HERE*************************/
-
-
-
+    int current_time = 0;
+    const int CONTEXT_SAVE_TIME = 30;
+    const int ISR_ACTIVITY_TIME = 40;
     /******************************************************************/
 
     //parse each line of the input trace file
@@ -29,7 +29,17 @@ int main(int argc, char** argv) {
         auto [activity, duration_intr] = parse_trace(trace);
 
         /******************ADD YOUR SIMULATION CODE HERE*************************/
+        // NOTE: There is a discrepency in the assignment description and what was posted by the professor as an example. The assignment notes
+        // take into account and print IRET, get ISR address, etc... For simplicity, and based on what we found to be most logical, we have decided to go with
+        // the most recent instructions/examples we were given, which did not include "variables". Additionally, at 1ms, the instructions state they are negligable.
+        // Generally, whenever we were uncertain with a requirement, we decided to comply with what the professor's example implemented.
 
+        if (activity == "CPU") {
+            // CPU burst
+            execution += std::to_string(current_time) + ", " + 
+                        std::to_string(duration_intr) + ", CPU Burst\n";
+            current_time += duration_intr;
+        }
 
 
         /************************************************************************/

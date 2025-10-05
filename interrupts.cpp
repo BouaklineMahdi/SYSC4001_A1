@@ -67,8 +67,27 @@ int main(int argc, char** argv) {
                         ", check for errors\n";
             current_time += third;    
         }
-
-
+        else if (activity == "END_IO") {
+            int device_num = duration_intr;
+            int device_delay = delays[device_num];
+            
+            auto [boilerplate_output, updated_time] = intr_boilerplate(current_time, device_num, CONTEXT_SAVE_TIME, vectors);
+            execution += boilerplate_output;
+            current_time = updated_time;
+            
+            // Breaking into 2 ISR activities that sum to device_delay
+            // Abiding by the professor's example
+            int first = 40;
+            int second = device_delay - first;
+            
+            execution += std::to_string(current_time) + ", " + std::to_string(first) + 
+                        ", ENDIO: run the ISR (device driver)\n";
+            current_time += first;
+            
+            execution += std::to_string(current_time) + ", " + std::to_string(second) + 
+                        ", check device status\n";
+            current_time += second;
+        }
         /************************************************************************/
 
     }

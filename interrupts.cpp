@@ -51,8 +51,8 @@ int main(int argc, char** argv) {
             
             // Breaking into 3 ISR activities that sum to device_delay
             // Abiding by the professor's example
-            int first = 40;
-            int second = 40;
+            int first = ISR_ACTIVITY_TIME;
+            int second = ISR_ACTIVITY_TIME;
             int third = device_delay - first - second;
             
             execution += std::to_string(current_time) + ", " + std::to_string(first) + 
@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
             
             // Breaking into 2 ISR activities that sum to device_delay
             // Abiding by the professor's example
-            int first = 40;
+            int first = ISR_ACTIVITY_TIME;
             int second = device_delay - first;
             
             execution += std::to_string(current_time) + ", " + std::to_string(first) + 
